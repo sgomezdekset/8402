@@ -23,8 +23,8 @@ generateTile = (board) ->
   value = randomValue()
   [row, column] = randomCellIndices()
   console.log "row: #{row} column: #{column}"
-
-  if board[row][column] == 0
+  
+  if board[row][column] is 0
     board[row][column] = value
   else
     generateTile(board)
@@ -32,19 +32,27 @@ generateTile = (board) ->
   console.log "generate tile"
 
 move = (board, direction) ->
+  newBoard = buildBoard()
+
   for i in [0..3]
-    if direction is 'right'
+    if direction in ['right', 'left']
       row = getRow(i, board)
       row = mergeCells(row, direction)
       row = collapseCells(row, direction)
-      console.log row
+      setRow(row, i, newBoard)
+  newBoard
+
+setRow = (row, index, board) ->
+  board[index] = row
+
 
 getRow = (r, board) ->
   [board[r][0], board[r][1], board[r][2], board[r][3]]
 
 
 mergeCells = (row, direction) ->
-  if direction is 'right'
+  
+  merge = (row) ->
     for a in [3...0]
       for b in [a-1..0]
         if row[a] is 0
@@ -54,20 +62,55 @@ mergeCells = (row, direction) ->
           row[b] = 0
           break
         else if row[b] isnt 0 then break
-  row
+    row
 
+  if direction is 'right'
+    row = merge(row)
+  else if direction is 'left'
+    row = merge(row.reverse()).reverse()
+
+  row
 
 collapseCells = (row, direction) ->
   row = row.filter (x) -> x isnt 0
   if direction is 'right'
     while row.length < 4
       row.unshift 0
+  else if direction is 'left'
+    while row.length < 4
+      row.push 0
   row
 
+moveIsValid = (originalBoard, newBoard) ->
+  for row in [0..3]
+    for col in [0..3]
+      if originalBoard[row][col] isnt newBoard[row][col]
+        return true
+  false
+
+boardIsFull = (board)->
+  for row in board
+    if 0 in row
+      return false
+  true
+
+noValidMoves = (board) ->
+  for direction in ['right', 'left']
+    newBoard = move(board, direction)
+    if moveIsValid(board, newBoard)
+      return false
+    true
+
+isGameOver = (board) ->
+  boardIsFull(board) and noValidMoves(board)
+  
 showBoard = (board) ->
   for row in [0..3]
     for col in [0..3]
-      $(".r#{row}.c#{col} > div").html(board[row][col])
+      if board[row][col] == 0
+        $(".r#{row}.c#{col} > div").html('')
+      else
+        $(".r#{row}.c#{col} > div").html(board[row][col])
   console.log "showBoard"
 
 printArray = (array) ->
@@ -95,7 +138,23 @@ $ ->
         when 40 then 'down'
       console.log "direction: #{direction}"
 
-      move(@board, direction)
+      newBoard = move(@board, direction)
+      printArray newBoard
+
+      if moveIsValid(@board, newBoard)
+        console.log "nice move!"
+        @board = newBoard
+        
+        generateTile(@board)
+
+        showBoard(@board)
+
+        if isGameOver(@board)
+          console.log "YOU SUCK"
+
+      else
+        console.log "work on your moves again"
+    else
 
 
 
