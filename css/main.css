@@ -1,15 +1,15 @@
 
-
 @font-face {
-	font-family: "Clear Sans";
-	src: url("/font/ClearSans-Bold.ttf");
+  font-family: "Top Secret";
+  src: url("/font/Top_Secret.ttf");
 }
 
 body {
 	background: #f9e5e5;
-	color: #3f4f5b;
-	font-family: "Clear Sans";
-	text-align: center
+	color: #FFD700;
+	font-family: "Top Secret";
+	text-align: center;
+  font-size: 10px;
 }
 
 .board {
@@ -21,12 +21,19 @@ body {
 }
 
 h1 {
+  font-family :Verdana;
 	font-size: 90px;
+  color: #3f4f5b;
+}
+
+p {
+  font-family: Verdana;
+  font-size: 40px;
+  color: #3f4f5b;
 }
 
 
 .cell {
-	background-color: #b7c3c2;
 	width: 100px;
 	float: left;
 	border: 1px solid black;
@@ -38,4 +45,121 @@ h1 {
 
 .cell div {
 	margin-top: 28px;
+  background-color: black;
+  border-radius: 10px;
 }
+
+
+.val-2000 {
+  background-image: url(https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-xfa1/v/t1.0-9/316598_10152325207030526_1229182166_n.jpg?oh=2ba13b76f54094a7296c6d8843c68b5c&oe=54ACE234&__gda__=1422311483_0dd1e012451994a5aee2758d281bbe57);
+  background-size: 100%;
+}
+
+.cell.val-2000 div {
+  margin-top: 0px;
+}
+
+.val-4000 {
+  background-image: url(https://scontent-b.xx.fbcdn.net/hphotos-xap1/v/t1.0-9/154456_10152574592430450_3459627286972976748_n.jpg?oh=f745f12b75389cfc06bbf1c565f841ff&oe=54B96457);
+  background-size: 100%;
+}
+
+.cell.val-4000 div {
+  margin-top: 72px;
+}
+
+.val-8000 {
+  background-image: url(https://fbcdn-sphotos-c-a.akamaihd.net/hphotos-ak-xaf1/v/t1.0-9/527412_10150753616880450_353606984_n.jpg?oh=d18422d68944e3520f58c2360c832f16&oe=54C9D2C4&__gda__=1422084887_376ab23c7035432daab09d72af0c7a7d);
+  background-repeat:no-repeat;
+  background-size: 130%;
+}
+
+.cell.val-8000 div {
+  margin-top: 72px;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+.val-16000 {
+  background-image: url(https://scontent-a.xx.fbcdn.net/hphotos-xpa1/v/t1.0-9/10292137_10152243136655829_2495828220804489430_n.jpg?oh=44a9aad91fde80180ce177e8b5726422&oe=54CB2C1E);
+  background-size: 105%;
+}
+
+.cell.val-16000 div {
+  margin-top: 0px;
+}
+
+.val-32000 {
+  background-image: url(https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpa1/v/t1.0-9/1069156_10153080266165473_31627183_n.jpg?oh=33bb903190f4204b80ac52fb7d989bff&oe=54B954D8&__gda__=1421658940_c6e3937afccf71e60c07410f841a72da);
+  background-size: 100%;
+}
+
+.cell.val-32000 div {
+  margin-top: 72px;
+}
+
+.val-64000 {
+  background-image: url(https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-frc3/v/t1.0-9/941929_10152835394960473_1297637321_n.jpg?oh=9b128f1ad50930fd89f55f594612c89d&oe=54AFCF37&__gda__=1421444218_04101eb327f91aba30d4e939d0d0b275);
+  background-repeat:no-repeat;
+  background-size: 100%;
+}
+
+.cell.val-64000 div {
+  margin-top: 72px;
+}
+
+.val-128000 {
+  background-image: url(https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-xaf1/v/t1.0-9/10401074_86543025374_6510_n.jpg?oh=95dbdf0321a58ed70ed90553670dc87c&oe=54C43EC2&__gda__=1422333578_78092755a4f3c03d023f2ba2e7a0a548);
+  background-size: 100%;
+}
+
+.cell.val-128000 div {
+  margin-top: 72px;
+}
+
+.val-256000 {
+  background-image: url(https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-xpa1/v/t1.0-9/10580166_10152568661785733_2008724494209770456_n.jpg?oh=b9ddd0d1fb16ba111ae0791ec2cdc1e3&oe=54C38995&__gda__=1422469507_faba478e25421302f1b41d726578d79c);
+  background-size: 100%;
+}
+
+.cell.val-256000 div {
+  margin-top: 0px;
+}
+
+.val-512000 {
+  background-image: url(https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-xpf1/v/t1.0-9/10344775_10152427582665491_7095589419506048709_n.jpg?oh=9310332d09b7d0eb828d658f5920a457&oe=54B83C03&__gda__=1421470844_4ce6f176e24ce0c0b1e639379b5d7595);
+  background-repeat:no-repeat;
+  background-size: 120%;
+}
+
+.cell.val-512000 div {
+  margin-top: 72px;
+}
+
+.val-1024000 {
+  background-image: url(https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-xaf1/v/t1.0-9/543000_10150769827440871_896134399_n.jpg?oh=f4c092a5c32d9a43751d7caa16a02f4f&oe=54BDE7E7&__gda__=1422346804_4c0b2f146e7015fdbf0f4a4d124ea692);
+  background-repeat:no-repeat;
+  background-size: 100%;
+}
+
+.cell.val-1024000 div {
+  margin-top: 72px;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+.val-2048000 {
+  background-image: url(http://www.x-pm.com/share/associe/img_big/2.jpg);
+  background-size: 100%;
+}
+
+.cell.val-2048000 div {
+  margin-top: 72px;
+}
+
+
+
+
+
+
+

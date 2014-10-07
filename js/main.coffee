@@ -5,7 +5,7 @@ randomCellIndices = ->
   [randomInt(4), randomInt(4)]
 
 randomValue = ->
-  values = [2,2,2,4]
+  values = [2000, 2000, 2000,4000]
   values[randomInt(4)]
 
 buildBoard = ->
@@ -40,46 +40,60 @@ move = (board, direction) ->
       row = mergeCells(row, direction)
       row = collapseCells(row, direction)
       setRow(row, i, newBoard)
+    else if direction in ['down', 'up']
+      column = getColumn(i, board)
+      column = mergeCells(column, direction)
+      column = collapseCells(column, direction)
+      console.log "column: ", column
+      setColumn(column, i, newBoard)
+
   newBoard
 
 setRow = (row, index, board) ->
   board[index] = row
 
-
 getRow = (r, board) ->
   [board[r][0], board[r][1], board[r][2], board[r][3]]
 
+getColumn = (c, board) ->
+  [board[0][c],board[1][c], board[2][c], board[3][c]]
 
-mergeCells = (row, direction) ->
+setColumn = (column, index, board) ->
+  for i in [0..3]
+    board[i][index] = column[i]
+
+
+mergeCells = (cells, direction) ->
   
-  merge = (row) ->
+  merge = (cells) ->
     for a in [3...0]
       for b in [a-1..0]
-        if row[a] is 0
+        if cells[a] is 0
           break
-        else if row[a] == row[b]
-          row[a] *= 2
-          row[b] = 0
+        else if cells[a] == cells[b]
+          cells[a] *= 2
+          cells[b] = 0
+          $(".coin_audio").trigger("play")
           break
-        else if row[b] isnt 0 then break
-    row
+        else if cells[b] isnt 0 then break
+    cells
 
-  if direction is 'right'
-    row = merge(row)
-  else if direction is 'left'
-    row = merge(row.reverse()).reverse()
+  if direction in ['right', 'down']
+    cells = merge(cells)
+  else if direction in ['left','up']
+    cells = merge(cells.reverse()).reverse()
 
-  row
+    cells
 
-collapseCells = (row, direction) ->
-  row = row.filter (x) -> x isnt 0
-  if direction is 'right'
-    while row.length < 4
-      row.unshift 0
-  else if direction is 'left'
-    while row.length < 4
-      row.push 0
-  row
+collapseCells = (cells, direction) ->
+  cells = cells.filter (x) -> x isnt 0
+  if direction in ['right', 'down']
+    while cells.length < 4
+      cells.unshift 0
+  else if direction in ['left','up']
+    while cells.length < 4
+      cells.push 0
+  cells
 
 moveIsValid = (originalBoard, newBoard) ->
   for row in [0..3]
@@ -95,8 +109,9 @@ boardIsFull = (board)->
   true
 
 noValidMoves = (board) ->
-  for direction in ['right', 'left']
+  for direction in ['right', 'left','up','down']
     newBoard = move(board, direction)
+    console.log newBoard
     if moveIsValid(board, newBoard)
       return false
     true
@@ -107,10 +122,13 @@ isGameOver = (board) ->
 showBoard = (board) ->
   for row in [0..3]
     for col in [0..3]
+      for value in [2000, 4000, 8000, 16000, 32000, 64000, 128000, 256000, 512000, 1024000, 2048000]
+        $(".r#{row}.c#{col}").removeClass('val-' + value)
       if board[row][col] == 0
         $(".r#{row}.c#{col} > div").html('')
       else
-        $(".r#{row}.c#{col} > div").html(board[row][col])
+        $(".r#{row}.c#{col}").addClass('val-' + board[row][col])
+        $(".r#{row}.c#{col} > div").html('$' + board[row][col])
   console.log "showBoard"
 
 printArray = (array) ->
@@ -118,6 +136,11 @@ printArray = (array) ->
   for row in array
     console.log row
   console.log "-- End --"
+
+bonus = (board) ->
+  for row in [0..3]
+    for col in [0..3]
+      max = Math.max(board[row][col])
 
 $ ->
   @board = buildBoard()
@@ -145,16 +168,19 @@ $ ->
         console.log "nice move!"
         @board = newBoard
         
+        bonus(newBoard)
+
         generateTile(@board)
 
         showBoard(@board)
 
         if isGameOver(@board)
-          console.log "YOU SUCK"
+          alert "YOU SUCK"
 
       else
         console.log "work on your moves again"
     else
+  
 
 
 
